@@ -16,6 +16,28 @@ namespace ProiectMedii.Data
         {
             _database = new SQLiteAsyncConnection(dbPath);
             _database.CreateTableAsync<ServiceList>().Wait();
+            _database.CreateTableAsync<Service>().Wait();
+            _database.CreateTableAsync<ListService>().Wait();
+        }
+        public Task<int> SaveServiceAsync(Service service)
+        {
+            if (service.ID != 0)
+            {
+                return _database.UpdateAsync(service);
+            }
+            else
+            {
+                return _database.InsertAsync(service);
+            }
+        }
+        public Task<int> DeleteServiceAsync(Service service)
+        {
+            return _database.DeleteAsync(service);
+        }
+
+        public Task<List<Service>> GetServicesAsync()
+        {
+            return _database.Table<Service>().ToListAsync();
         }
 
         public Task<List<ServiceList>> GetServiceListsAsync()
@@ -45,6 +67,28 @@ namespace ProiectMedii.Data
         public Task<int> DeleteServiceListAsync(ServiceList slist)
         {
             return _database.DeleteAsync(slist);
+        }
+
+        public Task<int> SaveListServiceAsync(ListService listp)
+        {
+            if (listp.ID != 0)
+            {
+                return _database.UpdateAsync(listp);
+            }
+            else
+            {
+                return _database.InsertAsync(listp);
+            }
+        }
+
+        public Task<List<Service>> GetListServicesAsync(int servicelistid)
+        {
+            return _database.QueryAsync<Service>(
+         "select S.ID, S.Description from Service S"
+         + " inner join ListService LS"
+         + " on S.ID = LS.ServiceID where LS.ServiceListID = ?",
+         servicelistid);
+
         }
     }
 }
