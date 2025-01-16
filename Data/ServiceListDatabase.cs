@@ -18,6 +18,7 @@ namespace ProiectMedii.Data
             _database.CreateTableAsync<ServiceList>().Wait();
             _database.CreateTableAsync<Service>().Wait();
             _database.CreateTableAsync<ListService>().Wait();
+            _database.CreateTableAsync<Shop>().Wait();
         }
         public Task<int> SaveServiceAsync(Service service)
         {
@@ -89,6 +90,23 @@ namespace ProiectMedii.Data
          + " on S.ID = LS.ServiceID where LS.ServiceListID = ?",
          servicelistid);
 
+        }
+
+        public Task<List<Shop>> GetShopsAsync()
+        {
+            return _database.Table<Shop>().ToListAsync();
+        }
+
+        public Task<int> SaveShopAsync(Shop shop)
+        {
+            if (shop.ID != 0)
+            {
+                return _database.UpdateAsync(shop);
+            }
+            else
+            {
+                return _database.InsertAsync(shop);
+            }
         }
     }
 }

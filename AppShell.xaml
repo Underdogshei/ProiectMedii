@@ -8,8 +8,25 @@
     Title="ProiectMedii">
 
     <TabBar>
-        <ShellContent Title="Welcome" ContentTemplate="{DataTemplate local:MainPage}" />
-        <ShellContent Title="About" ContentTemplate="{DataTemplate local:About}" />
-        <ShellContent Title="My Service Lists" ContentTemplate="{DataTemplate local:ListEntryPage}" />
+        <ShellContent 
+            Title="Welcome" 
+            ContentTemplate="{DataTemplate local:MainPage}" 
+             />
+
+        <ShellContent 
+            Title="My Service Lists" 
+            ContentTemplate="{DataTemplate local:ListEntryPage}" 
+             />
+
+        <ShellContent 
+            Title="Services"  
+            ContentTemplate="{DataTemplate local:ShopEntryPage}"  
+             />
+
+        <ShellContent 
+            Title="About" 
+            ContentTemplate="{DataTemplate local:About}" 
+             />
+
     </TabBar>
 </Shell>
